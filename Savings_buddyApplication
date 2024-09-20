@@ -1,0 +1,2128 @@
+package savings_buddyapplication;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
+import org.opencv.utils.Converters;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.core.*;
+import org.opencv.objdetect.Objdetect;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import jakarta.mail.util.StreamProvider;
+import java.util.Properties;
+import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+import java.util.regex.Pattern;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URLEncoder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+class Main {
+    String username;
+    JFrame signupframe = new JFrame("Welcome to Savings Buddy SignUp");
+    JFrame invalidSignupFrame = new JFrame("Invalid Details");
+    JFrame loginFrame = new JFrame("Login");
+    JFrame adminFrame = new JFrame("Admin");
+    JFrame createplanFrame = new JFrame("Create Plan");
+    JFrame formFrame = new JFrame("Fill Form");
+    JFrame existingmenuframe = new JFrame("Existing Plans");
+    JFrame weeklypaymentplansframe = new JFrame("Weekly Payment Plans");
+    JFrame monthlypaymentplansframe = new JFrame("Monthly Payment Plans");
+    JFrame roomframe = new JFrame("Room");
+    JFrame chatboxframe = new JFrame("chatbox");
+    JFrame menuFrame = new JFrame("Welcone to Savings Buddy menu"+username);
+    // LABELS
+    JLabel signupLabel = new JLabel("New to Savings Buddy? Create an Account");
+    JLabel adminLabel = new JLabel("Forms for approval");
+    JLabel emailLabel = new JLabel("Email:");
+    JLabel nameLabel = new JLabel("Username:");
+    JLabel passwordLabel = new JLabel("Password:");
+    JLabel usernameLabel = new JLabel("Username:");
+    JLabel alreadyAccountLabel = new JLabel("Already have an account?");
+    JLabel adminloginLabel = new JLabel("Want to login as Admin?");
+    JLabel create_plan_label = new JLabel("Create your plan");
+    JLabel existing_plan_menu_label = new JLabel("Select Payment Duration");
+    JLabel total_duration_label = new JLabel("Select Total Duration");
+    JLabel payment_duration_label = new JLabel("Select Payment Duration");
+    JLabel room_members_label = new JLabel("Select number of Room members");
+    JLabel amount_label = new JLabel("Select amount ");
+    JLabel invite_group_members_label = new JLabel("Invite your Room members from");
+    JLabel weeklypaymentplans_label = new JLabel("Select Weekly Plan");
+    JLabel monthlypaymentplans_label = new JLabel("Select Monthly Plan");
+    JLabel room_label= new JLabel("Room");
+    JLabel roommembers_label= new JLabel("Your Room Fellows");
+    JLabel roomchatbox_label= new JLabel("Chat Box");
+    JLabel roomwallet_label= new JLabel("View Wallet");
+    JLabel form_label = new JLabel("Form");
+    JLabel form_name_label = new JLabel("Name:");
+    JLabel form_fathersname_label = new JLabel("Father's Name:");
+    JLabel form_cnic_label = new JLabel("CNIC:");
+    JLabel form_phone_label = new JLabel("Phone:");
+    JLabel form_currentaddress_label = new JLabel("Current Address:");
+    JLabel form_permanentaddress_label = new JLabel("Permanent Address:");
+    JLabel formCNICpicture_label = new JLabel("CNIC Picture:");
+    JLabel formpicture_label = new JLabel("Your Picture:");
+    JLabel formCNICpicture_preview = new JLabel();
+    JLabel formpicture_preview = new JLabel();
+    // FIELDS
+    JTextField emailField = new JTextField();
+    JTextField nameField = new JTextField();
+    JPasswordField passwordField = new JPasswordField();
+    JTextField usernameField = new JTextField();
+    JTextField form_name_field = new JTextField();
+    JTextField form_fathersname_field = new JTextField();
+    JTextField form_cnic_field = new JTextField();
+    JTextField form_phone_field = new JTextField();
+    JTextField formaddress_field = new JTextField();
+    JTextField formCNICpicture_field = new JTextField();
+    JTextField form_currentaddress_field = new JTextField();
+    JTextField form_permanentaddress_field = new JTextField();
+    JTextField formpicture_field = new JTextField();
+    JTextField weekly_planAfield = new JTextField("");
+    JTextField weekly_planBfield = new JTextField("");
+    JTextField weekly_planCfield = new JTextField("");
+    JTextField weekly_planDfield= new JTextField("");
+    JTextField monthly_planAfield = new JTextField("");
+    JTextField monthly_planBfield = new JTextField("");
+    JTextField monthly_planCfield = new JTextField("");
+    JTextField monthly_planDfield = new JTextField("");
+    JTextField roommembers_field = new JTextField();
+    JTextField message_field = new JTextField();
+   
+
+    // BUTTONS
+    JButton signupButton = new JButton("Sign Up");
+    JButton exitButton = new JButton("Exit");
+    JButton loginButton = new JButton("Login");
+    JButton adminlogin_Button = new JButton("Login as Admin");
+    JButton exit_button = new JButton("Exit");
+    JButton goback_button = new JButton("GO BACK");
+    JButton create_plan_button = new JButton("Create Plan");
+    JButton existing_plan_button=new JButton("Select Existing Plan");
+    JButton confirm_button = new JButton("Confirm");
+    JButton submit_button=new JButton("Submit");
+    JButton continue_button = new JButton("Continue");
+    JButton weekly_payment_button = new JButton("Weekly Payments");
+    JButton monthly_payment_button = new JButton("Monthly Payments");
+    JButton Weeklyplan_A=new JButton("Select Plan A");
+    JButton Weeklyplan_B=new JButton("SelectPlan B");
+    JButton Weeklyplan_C=new JButton("Select Plan C");
+    JButton Weeklyplan_D=new JButton("Select Plan D");
+    JButton monthlyplan_A=new JButton("Select Plan A");
+    JButton monthlyplan_B=new JButton("Select Plan B");
+    JButton monthlyplan_C=new JButton("Select Plan C");
+    JButton monthlyplan_D=new JButton("Select Plan D");
+    JButton roomwallet_button = new JButton("Wallet");
+    JButton roomchat_button = new JButton("Chat Box");
+    JButton send_button=new JButton("Send");
+    JButton dashboard_button = new JButton("Dashboard");
+    JButton profile_button = new JButton("Profile");
+    JButton settings_button = new JButton("Settings");
+    JButton logout_button = new JButton("Logout");
+    JButton formpicture_button = new JButton("Upload Picture");
+    JButton formCNICpicture_button = new JButton("Upload CNIC Picture");
+     //ComboBoxs
+    String[] payment_duration ={"Weekly", "monthly"};
+    String[] total_duration ={"150 days ","250 days","350 days"};
+    String[] no_of_room_members ={"2","4 ","6","8","10"};
+    String[] amount ={"50","100 ","150","200","250","300","350","400","450","500"};
+    String[] deposit_amount ={"50","100 ","150","200","250","300","350","400","450","500"};
+    String[] invite_group_members ={"Facebook","Instagram ","Whatsapp","Add from favourites"};
+
+    JComboBox total_duration_como=new JComboBox(total_duration);
+    JComboBox payment_duration_como=new JComboBox(payment_duration);
+    JComboBox no_of_room_members_como=new JComboBox(no_of_room_members);
+    JComboBox deposit_amount_como=new JComboBox(deposit_amount);
+    JComboBox invite_group_members_como=new JComboBox(invite_group_members);
+    
+    // Database Connection
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+
+
+    void setupDatabase() {
+        // Initialize your database connection here
+        String dbUrl = "jdbc:mysql://localhost:3306/savings_buddy";
+        String dbUser = "root"; 
+        String dbPassword = ""; 
+
+        try {
+            conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+class SignUp extends Main {
+
+    SignUp() {
+        signupLabel.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        signupLabel.setForeground(Color.DARK_GRAY);
+        signupLabel.setBounds(50, 20, 750, 40);
+    }
+
+    void signupPage() {
+        emailLabel.setBounds(100, 100, 100, 30);
+        nameLabel.setBounds(100, 150, 100, 30);
+        passwordLabel.setBounds(100, 200, 100, 30);
+        alreadyAccountLabel.setBounds(150, 290, 200, 30);
+        alreadyAccountLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+        alreadyAccountLabel.setForeground(Color.DARK_GRAY);
+        adminloginLabel.setBounds(150, 340, 200, 30);  // Adjusted position
+        adminloginLabel.setFont(new Font("Arial", Font.PLAIN, 15));  // Matched font size with alreadyAccountLabel
+        adminloginLabel.setForeground(Color.DARK_GRAY);
+        emailField.setBounds(250, 100, 200, 30);
+        emailField.setBackground(Color.white);
+        emailField.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
+        nameField.setBounds(250, 150, 200, 30);
+        nameField.setBackground(Color.white);
+        nameField.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
+        passwordField.setBounds(250, 200, 200, 30);
+        passwordField.setBackground(Color.white);
+        passwordField.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
+        signupframe.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GRAY));
+        signupframe.add(signupLabel);
+        signupframe.add(emailLabel);
+        signupframe.add(emailField);
+        signupframe.add(nameLabel);
+        signupframe.add(nameField);
+        signupframe.add(passwordLabel);
+        signupframe.add(passwordField);
+        signupframe.add(signupButton);
+        signupframe.add(loginButton);
+        signupframe.add(adminlogin_Button);
+        signupframe.add(alreadyAccountLabel);
+        signupframe.add(adminloginLabel);
+        signupframe.add(exitButton);
+        signupframe.setLayout(null);
+        signupframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        signupframe.setSize(1000, 600);
+        signupButton();
+        loginButton();
+        adminLoginButton();
+        exitButton();
+    }
+
+    void signupButton() {
+       signupButton.setBackground(new Color(0x6A0DAD));
+        signupButton.setForeground(Color.white);
+        signupButton.setFont(new Font("Arial", Font.BOLD, 15));
+        signupButton.setBounds(150, 250, 120, 35);
+        signupButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        signupButton.setFocusPainted(false);
+        signupButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        signupButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                signupButton.setBackground(new Color(0x8A2BE2));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                signupButton.setBackground(new Color(0x6A0DAD));
+            }
+        });
+        signupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String email = emailField.getText();
+                String username = nameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                if (isValidSignup(email, username, password)) {
+                    if (insertUserData(email, username, password)) {
+                        sendVerificationEmail(email);
+                        signupframe.dispose();
+                        Login login_object = new Login();
+                        login_object.LoginFrame();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error during signup process.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please correct the errors and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+    void loginButton() {
+        loginButton.setBackground(Color.CYAN);
+        loginButton.setForeground(Color.black);
+        loginButton.setFont(new Font("Arial", Font.BOLD, 15));
+        loginButton.setBounds(330, 290, 120, 35);
+        loginButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        loginButton.setFocusPainted(false);
+        loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                loginButton.setBackground(Color.lightGray);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                loginButton.setBackground(Color.CYAN);
+            }
+        });
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                signupframe.dispose();
+                Login login_object = new Login();
+                login_object.LoginFrame();
+            }
+        });
+    }
+    void adminLoginButton()
+    {
+         adminlogin_Button.setBackground(new Color(0x6A0DAD));  // Matching background color with signupButton
+        adminlogin_Button.setForeground(Color.white);  // White text color
+        adminlogin_Button.setFont(new Font("Arial", Font.BOLD, 15));  // Matching font style and size
+        adminlogin_Button.setBounds(330, 340, 120, 35);  // Adjusted position and size
+        adminlogin_Button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        adminlogin_Button.setFocusPainted(false);
+        adminlogin_Button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        adminlogin_Button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                adminlogin_Button.setBackground(new Color(0x8A2BE2));  // Matching hover color with signupButton
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                adminlogin_Button.setBackground(new Color(0x6A0DAD));  // Reverting to original background color
+            }
+        });
+        adminlogin_Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                signupframe.dispose();
+                Admin adminloginobject=new Admin();
+        adminloginobject.adminFrame();
+            }
+        });
+    }
+    boolean isValidSignup(String email, String username, String password) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+        String usernameRegex = "^[a-zA-Z0-9]+$";
+        String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}$";
+
+        Pattern emailPattern = Pattern.compile(emailRegex);
+        Pattern usernamePattern = Pattern.compile(usernameRegex);
+        Pattern passwordPattern = Pattern.compile(passwordRegex);
+
+        if (!emailPattern.matcher(email).matches()) {
+            JOptionPane.showMessageDialog(null, "Invalid email format", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (!usernamePattern.matcher(username).matches()) {
+            JOptionPane.showMessageDialog(null, "Username must not contain special characters", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (!passwordPattern.matcher(password).matches()) {
+            JOptionPane.showMessageDialog(null, "Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Check if email or username already exists in the database
+        if (isEmailOrUsernameTaken(email, username)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    boolean isEmailOrUsernameTaken(String email, String username) {
+        if (conn == null) {
+            setupDatabase();
+        }
+
+        if (conn != null) {
+            String emailQuery = "SELECT COUNT(*) FROM users WHERE email = ?";
+            String usernameQuery = "SELECT COUNT(*) FROM users WHERE username = ?";
+
+            try (PreparedStatement emailStmt = conn.prepareStatement(emailQuery);
+                 PreparedStatement usernameStmt = conn.prepareStatement(usernameQuery)) {
+
+                // Check if email is already taken
+                emailStmt.setString(1, email);
+                ResultSet emailRs = emailStmt.executeQuery();
+                if (emailRs.next() && emailRs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(null, "You can't make more than 1 account using the same email", "Error", JOptionPane.ERROR_MESSAGE);
+                    return true;
+                }
+
+                // Check if username is already taken
+                usernameStmt.setString(1, username);
+                ResultSet usernameRs = usernameStmt.executeQuery();
+                if (usernameRs.next() && usernameRs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(null, "This name is already taken", "Error", JOptionPane.ERROR_MESSAGE);
+                    return true;
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Database query error", "Error", JOptionPane.ERROR_MESSAGE);
+                return true;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Database connection error", "Error", JOptionPane.ERROR_MESSAGE);
+            return true;
+        }
+
+        return false;
+    }
+
+    boolean insertUserData(String email, String username, String password) {
+        if (conn == null) {
+            setupDatabase();
+        }
+
+        if (conn != null) {
+            String sql = "INSERT INTO users (email, username, password) VALUES (?, ?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, email);
+                pstmt.setString(2, username);
+                pstmt.setString(3, password);
+                pstmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Signup successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error inserting user data", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Database connection error", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+    void sendVerificationEmail(String recipientEmail) {
+        String generatedToken = UUID.randomUUID().toString(); // Generate a unique token
+        String loginLink = "http://localhost:8080/login?token=" + generatedToken;
+        String subject = "Your Login Link";
+        String messageBody = "Thank you for signing up! Please verify your email by clicking the following link:\n\n" +
+                     "http://example.com/verify?email=" + recipientEmail + "\n\n" +
+                     "Click the following link to log in:\n" + loginLink;
+
+        String host = "smtp.gmail.com";
+        final String email = System.getenv("EMAIL"); 
+        final String password = System.getenv("PASSWORD");
+        // Ensure these are not null or empty
+        
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Email environment variable is not set.");
+        }
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password environment variable is not set.");
+        }
+        Properties props = new Properties();
+    props.put("mail.smtp.host", "smtp.gmail.com");
+    props.put("mail.smtp.port", "587");
+    props.put("mail.smtp.auth", "true");
+    props.put("mail.smtp.starttls.enable", "true");
+
+    Session session = Session.getInstance(props, new Authenticator() {
+    @Override
+    protected PasswordAuthentication getPasswordAuthentication() {
+        return new PasswordAuthentication(email, password);
+    }
+});
+       
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("EMAIL"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+            message.setSubject(subject);
+            message.setText(messageBody);
+
+            Transport.send(message);
+            JOptionPane.showMessageDialog(null, "Verifiation and Login link sent to " + recipientEmail);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error sending login link", "Error", JOptionPane.ERROR_MESSAGE);
+        }}
+    void exitButton() {
+         exitButton.setFont(new Font("Arial", Font.BOLD, 15));
+        exitButton.setBackground(Color.red);
+        exitButton.setBounds(150, 400, 120, 35);
+        exitButton.setForeground(Color.white);
+        exitButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        exitButton.setFocusPainted(false);
+        exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exitButton.setBackground(new Color(0xFF6347));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exitButton.setBackground(Color.red);
+            }
+        });
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                signupframe.dispose();
+            }
+        });
+    }
+}
+class Admin extends Main {
+    private JTable table;
+    private DefaultTableModel tableModel;
+    private JButton approveButton, disapproveButton;
+    private Connection connection;
+
+    Admin() {
+        adminLabel.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        adminLabel.setForeground(Color.DARK_GRAY);
+        adminLabel.setBounds(50, 20, 750, 40);
+        adminFrame.setVisible(true);
+    }
+
+    void adminFrame() {
+        adminFrame.setSize(800, 600);
+        adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        adminFrame.setLocationRelativeTo(null);
+
+        // Initialize table model
+        tableModel = new DefaultTableModel() {
+            @Override
+            public Class<?> getColumnClass(int column) {
+                if (column == 4 || column == 5) {
+                    return ImageIcon.class; // Columns for images
+                }
+                return Object.class;
+            }
+        };
+        tableModel.addColumn("Form ID");
+        tableModel.addColumn("Name");
+        tableModel.addColumn("Father's Name");
+        tableModel.addColumn("CNIC");
+        tableModel.addColumn("CNIC Picture");
+        tableModel.addColumn("User Image");
+        tableModel.addColumn("Phone");
+        tableModel.addColumn("Current Address");
+        tableModel.addColumn("Permanent Address");
+        tableModel.addColumn("Email");
+        tableModel.addColumn("Approved");
+        tableModel.addColumn("Action");
+
+        // Initialize table
+        table = new JTable(tableModel);
+        table.setFillsViewportHeight(true);
+        loadUserForms();
+        table.setRowHeight(150);
+        table.getColumnModel().getColumn(4).setPreferredWidth(150); // CNIC Picture column
+        table.getColumnModel().getColumn(5).setPreferredWidth(150); // User Image column
+
+        // Add a scroll pane
+        JScrollPane scrollPane = new JScrollPane(table);
+        adminFrame.add(scrollPane, BorderLayout.CENTER);
+
+        // Setup approve button
+        approveButton = new JButton("Approve");
+        approveButton.addActionListener(new ApproveActionListener());
+
+        // Setup disapprove button
+        disapproveButton = new JButton("Disapprove");
+        disapproveButton.addActionListener(new DisapproveActionListener());
+
+        // Add buttons to the frame
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(approveButton);
+        buttonPanel.add(disapproveButton);
+        adminFrame.add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    // Load user forms from the database
+    private void loadUserForms() {
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/savings_buddy", "host", "");
+
+            String query = "SELECT id, name, fathers_name, cnic, cnic_picture_name, user_picture_name, phone, current_address, permanent_address, email, approved FROM users_forms";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            String imagesDirectory = "C:\\xampp\\mysql\\data\\savings_buddy\\images\\";
+
+            while (resultSet.next()) {
+                String cnicImagePath = imagesDirectory + resultSet.getString("cnic_picture_name");
+                String userImagePath = imagesDirectory + resultSet.getString("user_picture_name");
+
+                ImageIcon cnicImage = loadImage(cnicImagePath);
+                ImageIcon userImage = loadImage(userImagePath);
+
+                Object[] rowData = {
+                    resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("fathers_name"),
+                    resultSet.getString("cnic"),
+                    cnicImage,
+                    userImage,
+                    resultSet.getString("phone"),
+                    resultSet.getString("current_address"),
+                    resultSet.getString("permanent_address"),
+                    resultSet.getString("email"),
+                    resultSet.getBoolean("approved"),
+                    "Approve" // Placeholder for action button
+                };
+                tableModel.addRow(rowData);
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ImageIcon loadImage(String path) {
+        try {
+            ImageIcon originalImage = new ImageIcon(path);
+            Image resizedImage = originalImage.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            return new ImageIcon(resizedImage);
+        } catch (Exception e) {
+            System.out.println("Error loading image from: " + path);
+            return null;
+        }
+    }
+    // Inner class for Approve button action listener
+    private class ApproveActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                int userId = (int) tableModel.getValueAt(selectedRow, 0);
+                String userEmail = (String) tableModel.getValueAt(selectedRow, 9); // email is now at column 9
+                approveUserForm(userId, userEmail);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a user form to approve.");
+            }
+        }
+
+        private void approveUserForm(int userId, String userEmail) {
+            try {
+                String updateQuery = "UPDATE users_forms SET approved = 1 WHERE id = ?";
+                PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+                updateStatement.setInt(1, userId);
+                int rowsUpdated = updateStatement.executeUpdate();
+
+                if (rowsUpdated > 0) {
+                    tableModel.setValueAt(true, table.getSelectedRow(), 10); // Update approved column in table
+                    sendApprovalEmail(userEmail);
+                    JOptionPane.showMessageDialog(null, "User form approved successfully.");
+                }
+
+                updateStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void sendApprovalEmail(String userEmail) {
+            final String username = System.getenv("EMAIL");
+            final String password = System.getenv("PASSWORD");
+
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.socketFactory.port", "465");
+            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.port", "465");
+
+            Session session = Session.getInstance(props,
+                new Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+            try {
+                if (userEmail == null || !userEmail.contains("@")) {
+                    throw new IllegalArgumentException("Invalid email address: " + userEmail);
+                }
+
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(username));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
+                message.setSubject("Approval Notification");
+                message.setText("Your user form has been approved successfully.");
+
+                Transport.send(message);
+                JOptionPane.showMessageDialog(null,"Approval email sent successfully.");
+
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                System.out.println("Error: " + e.getMessage());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
+private class DisapproveActionListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            boolean isApproved = (boolean) tableModel.getValueAt(selectedRow, 10); // Check approved status
+
+            if (isApproved) {
+                JOptionPane.showMessageDialog(adminFrame, "This form has already been approved and cannot be disapproved.");
+                return;
+            }
+
+            int userId = (int) tableModel.getValueAt(selectedRow, 0);
+            String userEmail = (String) tableModel.getValueAt(selectedRow, 9); // email is now at column 9
+            String reason = JOptionPane.showInputDialog(adminFrame, "Enter reason for disapproval:");
+
+            if (reason != null && !reason.trim().isEmpty()) {
+                disapproveUserForm(userId, userEmail, reason);
+            } else {
+                JOptionPane.showMessageDialog(adminFrame, "Disapproval reason cannot be empty.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a user form to disapprove.");
+        }
+    }
+
+    private void disapproveUserForm(int userId, String userEmail, String reason) {
+        try {
+            String updateQuery = "UPDATE users_forms SET approved = 0 WHERE id = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+            updateStatement.setInt(1, userId);
+            int rowsUpdated = updateStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                tableModel.setValueAt(false, table.getSelectedRow(), 10); // Update approved column in table
+                sendDisapprovalEmail(userEmail, reason);
+                JOptionPane.showMessageDialog(null, "User form disapproved successfully.");
+            }
+
+            updateStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendDisapprovalEmail(String userEmail, String reason) {
+        final String username = System.getenv("EMAIL");
+        final String password = System.getenv("PASSWORD");
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getInstance(props,
+            new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+            });
+
+        try {
+            if (userEmail == null || !userEmail.contains("@")) {
+                throw new IllegalArgumentException("Invalid email address: " + userEmail);
+            }
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
+            message.setSubject("Disapproval Notification");
+            message.setText("Your user form has been disapproved.\nReason: " + reason);
+
+            Transport.send(message);
+            JOptionPane.showMessageDialog(null,"Disapproval email sent successfully.");
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+}
+
+class Login extends Main {
+
+    public void LoginFrame() {
+        JLabel loginLabel = new JLabel("Login");
+        loginLabel.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        loginLabel.setForeground(new Color(60, 60, 60)); // Dark grey color
+        loginLabel.setBounds(50, 50, 200, 40);
+
+        usernameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        usernameLabel.setForeground(new Color(80, 80, 80)); // Medium grey color
+        usernameLabel.setBounds(50, 100, 100, 30);
+
+        passwordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        passwordLabel.setForeground(new Color(80, 80, 80));
+        passwordLabel.setBounds(50, 150, 100, 30);
+
+        usernameField.setBounds(150, 100, 200, 30);
+        usernameField.setBackground(Color.white);
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
+        usernameField.setBorder(BorderFactory.createLineBorder(new Color(120, 120, 120), 1));
+
+        passwordField.setBounds(150, 150, 200, 30);
+        passwordField.setBackground(Color.white);
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
+        passwordField.setBorder(BorderFactory.createLineBorder(new Color(120, 120, 120), 1));
+
+        exitButton.setBounds(100, 250, 100, 30);
+        loginFrame.add(loginLabel);
+        loginFrame.add(usernameLabel);
+        loginFrame.add(usernameField);
+        loginFrame.add(passwordLabel);
+        loginFrame.add(passwordField);
+        loginFrame.add(loginButton);
+        loginFrame.add(exitButton);
+        loginFrame.setLayout(null);
+        loginFrame.setSize(400, 450);
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.setVisible(true);
+        loginButton();
+        exitButton();
+    }
+
+    void loginButton() {
+        loginButton.setBounds(50, 200, 130, 35);
+        loginButton.setBackground(new Color(72, 133, 237)); // Google blue color
+        loginButton.setForeground(Color.white);
+        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
+        loginButton.setFocusPainted(false);
+        loginButton.setBorder(BorderFactory.createLineBorder(new Color(72, 133, 237), 1));
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                if (isValidLogin(username, password)) {
+                    loginFrame.dispose();
+                    menu menu_object = new menu(username);
+                    menu_object.MenuFrame();
+                    menu_object.createPlan();
+                    menu_object.existingPlan();
+                    menu_object.exitButton();
+                    menu_object.dashboardButton();
+                    menu_object.profileButton();
+                    menu_object.settingsButton();
+                    menu_object.logoutButton();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid username or password", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+    void exitButton() {
+         exitButton.setBounds(220, 200, 130, 35);
+        exitButton.setBackground(new Color(219, 68, 55)); // Google red color
+        exitButton.setForeground(Color.white);
+        exitButton.setFont(new Font("Arial", Font.BOLD, 14));
+        exitButton.setFocusPainted(false);
+        exitButton.setBorder(BorderFactory.createLineBorder(new Color(219, 68, 55), 1));
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loginFrame.dispose();
+            }
+        });
+    }
+
+    boolean isValidLogin(String username, String password) {
+        if (conn == null) {
+            setupDatabase();
+        }
+
+        if (conn != null) {
+            String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, username);
+                pstmt.setString(2, password);
+                ResultSet rs = pstmt.executeQuery();
+
+                return rs.next(); // If a record is found, login is valid
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error during login", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Database connection error", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+}
+
+class menu extends Main {
+    menu(String username) {
+        this.username = username;
+    }
+    void MenuFrame() {
+        JLabel welcomeLabel = new JLabel("Welcome to Savings Buddy, " + username + "!");
+        welcomeLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        welcomeLabel.setForeground(new Color(60, 60, 60)); // Dark grey color
+        welcomeLabel.setBounds(50, 50, 400, 40);
+        
+        menuFrame.add(welcomeLabel);
+        menuFrame.setLayout(null);
+        menuFrame.setSize(700, 500);
+        menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menuFrame.setLocationRelativeTo(null); // Center the frame on the screen
+        menuFrame.getContentPane().setBackground(new Color(240, 248, 255)); // AliceBlue background
+        menuFrame.add(create_plan_button);
+        menuFrame.add(existing_plan_button);
+        menuFrame.add(exit_button);
+        menuFrame.add(dashboard_button);
+        menuFrame.add(profile_button);
+        menuFrame.add(settings_button);
+        menuFrame.add(logout_button);
+        menuFrame.setVisible(true);
+    }
+    void createPlan() {
+        create_plan_button.setBounds(150, 100, 300, 30);
+        create_plan_button.setFont(new Font("Arial", Font.BOLD, 14));
+        create_plan_button.setBackground(new Color(72, 133, 237));
+        create_plan_button.setForeground(Color.WHITE);
+        create_plan_button.setFocusPainted(false);
+        create_plan_button.setBorder(BorderFactory.createLineBorder(new Color(72, 133, 237), 1));
+        create_plan_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuFrame.dispose();
+                CreatePlan create_plan_object = new CreatePlan(username);
+                create_plan_object.createPlan();
+                create_plan_object.backButton();
+                create_plan_object.confirmButton(username);
+            }
+        });
+    }
+
+    void existingPlan() {
+        existing_plan_button.setBounds(150, 150, 300, 30);
+        existing_plan_button.setFont(new Font("Arial", Font.BOLD, 14));
+        existing_plan_button.setBackground(new Color(72, 133, 237));
+        existing_plan_button.setForeground(Color.WHITE);
+        existing_plan_button.setFocusPainted(false);
+        existing_plan_button.setBorder(BorderFactory.createLineBorder(new Color(72, 133, 237), 1));
+        existing_plan_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuFrame.dispose();
+                ExistingPlanMenu exisitingplansmenu_obj=new ExistingPlanMenu();
+                exisitingplansmenu_obj.existingMenuFrame();
+                exisitingplansmenu_obj.weeklyPayment();
+                exisitingplansmenu_obj.monthlyPayment();
+                exisitingplansmenu_obj.backButton();
+            }
+        });
+    }
+
+    void dashboardButton() {
+        dashboard_button.setBounds(150, 200, 300, 30);
+        dashboard_button.setFont(new Font("Arial", Font.BOLD, 14));
+        dashboard_button.setBackground(new Color(72, 133, 237));
+        dashboard_button.setForeground(Color.WHITE);
+        dashboard_button.setFocusPainted(false);
+        dashboard_button.setBorder(BorderFactory.createLineBorder(new Color(72, 133, 237), 1));
+        dashboard_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menuFrame, "Dashboard functionality coming soon!");
+            }
+        });
+    }
+
+    void profileButton() {
+        profile_button.setBounds(150, 250, 300, 30);
+        profile_button.setFont(new Font("Arial", Font.BOLD, 14));
+        profile_button.setBackground(new Color(72, 133, 237));
+        profile_button.setForeground(Color.WHITE);
+        profile_button.setFocusPainted(false);
+        profile_button.setBorder(BorderFactory.createLineBorder(new Color(72, 133, 237), 1));
+        profile_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menuFrame, "Profile functionality coming soon!");
+            }
+        });
+    }
+
+    void settingsButton() {
+         settings_button.setBounds(150, 300, 300, 30);
+        settings_button.setFont(new Font("Arial", Font.BOLD, 14));
+        settings_button.setBackground(new Color(72, 133, 237));
+        settings_button.setForeground(Color.WHITE);
+        settings_button.setFocusPainted(false);
+        settings_button.setBorder(BorderFactory.createLineBorder(new Color(72, 133, 237), 1));
+        settings_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menuFrame, "Settings functionality coming soon!");
+            }
+        });
+    }
+
+    void logoutButton() {
+        logout_button.setBounds(150, 350, 300, 30);
+        logout_button.setFont(new Font("Arial", Font.BOLD, 14));
+        logout_button.setBackground(Color.RED);
+        logout_button.setForeground(Color.WHITE);
+        logout_button.setFocusPainted(false);
+        logout_button.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+        logout_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuFrame.dispose();
+                SignUp object=new SignUp();
+                object.signupPage();    
+            }
+        });
+    }
+    void exitButton() {
+        exit_button.setBounds(250, 400, 100, 30);
+        exit_button.setFont(new Font("Arial", Font.BOLD, 14));
+        exit_button.setBackground(new Color(219, 68, 55)); // Google red color
+        exit_button.setForeground(Color.WHITE);
+        exit_button.setFocusPainted(false);
+        exit_button.setBorder(BorderFactory.createLineBorder(new Color(219, 68, 55), 1));
+        exit_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuFrame.dispose();
+            }
+        });
+    }
+}
+
+class form extends Main {
+    
+    private File cnicFile;
+    private File userFile;
+    private final String imageDirectory = "C:\\xampp\\mysql\\data\\savings_buddy\\images";
+
+    form(String username) {
+        this.username = username;
+        form_label.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        form_label.setForeground(Color.gray.darker());
+        form_label.setBounds(50, 50, 400, 30);
+    }
+
+    void formfilling() {
+        form_name_label.setBounds(100, 100, 200, 30);
+        form_name_field.setBounds(100, 130, 200, 30);
+        form_fathersname_label.setBounds(100, 170, 200, 30);
+        form_fathersname_field.setBounds(100, 200, 200, 30);
+        form_cnic_label.setBounds(100, 240, 200, 30);
+        form_cnic_field.setBounds(100, 270, 200, 30);
+        form_phone_label.setBounds(100, 310, 200, 30);
+        form_phone_field.setBounds(100, 340, 200, 30);
+        form_currentaddress_label.setBounds(500, 100, 400, 30);
+        form_currentaddress_field.setBounds(500, 130, 300, 90);
+        form_permanentaddress_label.setBounds(500, 230, 400, 30);
+        form_permanentaddress_field.setBounds(500, 260, 300, 90);
+        formCNICpicture_label.setBounds(500, 360, 400, 30);
+        formCNICpicture_field.setBounds(500, 390, 200, 30);
+        formCNICpicture_button.setBounds(710, 390, 150, 30);
+        formCNICpicture_preview.setBounds(870, 390, 150, 150); // Adjust as needed
+        formpicture_label.setBounds(500, 430, 400, 30);
+        formpicture_field.setBounds(500, 460, 200, 30);
+        formpicture_button.setBounds(710, 460, 150, 30);
+        formpicture_preview.setBounds(870, 460, 150, 150); // Adjust as needed
+
+        formFrame.add(form_label);
+        formFrame.add(form_name_label);
+        formFrame.add(form_name_field);
+        formFrame.add(form_fathersname_label);
+        formFrame.add(form_fathersname_field);
+        formFrame.add(form_cnic_label);
+        formFrame.add(form_cnic_field);
+        formFrame.add(form_phone_label);
+        formFrame.add(form_phone_field);
+        formFrame.add(form_currentaddress_label);
+        formFrame.add(form_currentaddress_field);
+        formFrame.add(form_permanentaddress_label);
+        formFrame.add(form_permanentaddress_field);
+        formFrame.add(formCNICpicture_label);
+        formFrame.add(formCNICpicture_field);
+        formFrame.add(formCNICpicture_button);
+        formFrame.add(formCNICpicture_preview);
+        formFrame.add(formpicture_label);
+        formFrame.add(formpicture_field);
+        formFrame.add(formpicture_button);
+        formFrame.add(formpicture_preview);
+        formFrame.add(submit_button);
+        formFrame.add(goback_button);
+        uploadButtons();
+
+        formFrame.setBackground(Color.blue);
+        formFrame.setLayout(null);
+        formFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        formFrame.setSize(1100, 760); // Adjust the size to fit the new components
+        formFrame.setVisible(true);
+    }
+    void uploadButtons() {
+        formCNICpicture_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(formFrame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    cnicFile = fileChooser.getSelectedFile();
+                    formCNICpicture_field.setText(cnicFile.getAbsolutePath());
+                    formCNICpicture_preview.setIcon(resizeImageIcon(cnicFile.getAbsolutePath(), 150, 150)); 
+                }
+            }
+        });
+
+        formpicture_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(formFrame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    userFile = fileChooser.getSelectedFile();
+                    formpicture_field.setText(userFile.getAbsolutePath());
+                    formpicture_preview.setIcon(resizeImageIcon(userFile.getAbsolutePath(), 150, 150)); 
+                }
+            }
+        });
+    }
+    
+    private ImageIcon resizeImageIcon(String imagePath, int width, int height) {
+        ImageIcon icon = new ImageIcon(imagePath);
+        Image img = icon.getImage();
+        Image resizedImage = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(resizedImage);
+    }
+    
+    private boolean validateImageSize(File imageFile) {
+        try {
+            BufferedImage img = ImageIO.read(imageFile);
+            return img.getWidth() >= 300 && img.getHeight() >= 300;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+     boolean detectFaceAndBodyInImage(File imageFile) {
+    System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+    // Update the paths to the absolute paths of the Haar cascade files
+    String faceCascadePath = "C:\\Users\\PMYLS\\Downloads\\opencv\\sources\\data\\haarcascades\\haarcascade_frontalface_alt.xml";
+    String bodyCascadePath = "C:\\Users\\PMYLS\\Downloads\\opencv\\build\\etc\\haarcascades\\haarcascade_upperbody.xml";
+
+
+    CascadeClassifier faceDetector = new CascadeClassifier(faceCascadePath);
+    CascadeClassifier bodyDetector = new CascadeClassifier(bodyCascadePath);
+
+    // Check if the classifiers are loaded correctly
+    if (faceDetector.empty()) {
+        System.err.println("Failed to load face detector");
+        return false;
+    }
+
+    if (bodyDetector.empty()) {
+        System.err.println("Failed to load body detector");
+        return false;
+    }
+
+    Mat image = Imgcodecs.imread(imageFile.getAbsolutePath());
+
+    MatOfRect faceDetections = new MatOfRect();
+    faceDetector.detectMultiScale(image, faceDetections);
+
+    MatOfRect bodyDetections = new MatOfRect();
+    bodyDetector.detectMultiScale(image, bodyDetections);
+
+    return faceDetections.toArray().length > 0 && bodyDetections.toArray().length > 0;
+}
+
+    static {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    }
+
+    private boolean detectFaceInImage(File imageFile) {
+        try {
+            CascadeClassifier faceDetector = new CascadeClassifier("C:\\Users\\PMYLS\\Downloads\\opencv\\sources\\data\\haarcascades\\haarcascade_frontalface_alt.xml");
+            Mat image = Imgcodecs.imread(imageFile.getAbsolutePath());
+
+            MatOfRect faceDetections = new MatOfRect();
+            faceDetector.detectMultiScale(image, faceDetections);
+
+            return faceDetections.toArray().length > 0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    private void saveImage(File sourceFile, String targetDirectory) throws IOException {
+        File targetFile = new File(targetDirectory, sourceFile.getName());
+        Files.copy(sourceFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+    }
+    void submitButton() {
+    submit_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+    submit_button.setBackground(Color.green);
+    submit_button.setBounds(600, 600, 120, 30);
+    submit_button.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                String name = form_name_field.getText();
+                if (name.isEmpty() || !name.matches("[a-zA-Z ]+")) {
+                    throw new Exception("Invalid name");
+                }
+
+                String fatherName = form_fathersname_field.getText();
+                if (fatherName.isEmpty() || !fatherName.matches("[a-zA-Z ]+")) {
+                    throw new Exception("Invalid father's name");
+                }
+
+                String cnic = form_cnic_field.getText();
+                if (cnic.isEmpty() || !cnic.matches("[0-9]+") || cnic.length() != 13) {
+                    throw new Exception("Invalid CNIC");
+                }
+
+                String phone = form_phone_field.getText();
+                if (phone.isEmpty() || !phone.matches("[0-9]+") || phone.length() != 11) {
+                    throw new Exception("Invalid phone number");
+                }
+
+                // Check if images are uploaded and valid
+                if (cnicFile == null || userFile == null) {
+                    throw new Exception("Please upload both CNIC and user pictures.");
+                }
+
+                if (!validateImageSize(cnicFile) || !validateImageSize(userFile)) {
+                    throw new Exception("Invalid image size. Please ensure images are at least 300x300 pixels.");
+                }
+
+                // Face detection in CNIC picture
+                if (!detectFaceInImage(cnicFile)) {
+                    throw new Exception("Invalid CNIC picture. No face detected.");
+                }
+                // Face and body detection in user picture
+                if (!detectFaceAndBodyInImage(userFile)) {
+                    throw new Exception("Invalid user picture. Ensure it contains both face and upper body.");
+                }
+
+                saveImage(cnicFile, imageDirectory);
+                saveImage(userFile, imageDirectory);
+
+                // Save data to the database
+                String currentAddress = form_currentaddress_field.getText();
+                String permanentAddress = form_permanentaddress_field.getText();
+                String cnicImageName = cnicFile.getName();
+                String userImageName = userFile.getName();
+
+                String url = "jdbc:mysql://localhost:3306/savings_buddy";
+                String dbUser = "root";
+                String dbPassword = "";
+
+                // Fetch the user_id and email based on the username
+                int userId = 0;
+                String email = "";
+                String fetchUserSql = "SELECT user_id, email FROM users WHERE username = ?";
+
+                try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
+                     PreparedStatement fetchUserStmt = conn.prepareStatement(fetchUserSql)) {
+
+                    fetchUserStmt.setString(1, username);
+                    ResultSet rs = fetchUserStmt.executeQuery();
+
+                    if (rs.next()) {
+                        userId = rs.getInt("user_id");
+                        email = rs.getString("email");
+                    } else {
+                        throw new Exception("User not found");
+                    }
+
+                    // Insert the form data into the users_forms table
+                    String insertFormSql = "INSERT INTO users_forms (user_id, name, fathers_name, cnic, phone, current_address, permanent_address, cnic_picture_name, user_picture_name, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                    try (PreparedStatement insertStmt = conn.prepareStatement(insertFormSql)) {
+                        insertStmt.setInt(1, userId);
+                        insertStmt.setString(2, name);
+                        insertStmt.setString(3, fatherName);
+                        insertStmt.setString(4, cnic);
+                        insertStmt.setString(5, phone);
+                        insertStmt.setString(6, currentAddress);
+                        insertStmt.setString(7, permanentAddress);
+                        insertStmt.setString(8, cnicImageName);
+                        insertStmt.setString(9, userImageName);
+                        insertStmt.setString(10, email); // Store the email
+
+                        insertStmt.executeUpdate();
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
+                formFrame.dispose();
+                JOptionPane.showMessageDialog(formFrame, "Form Submitted /n You will Recieve Form Approval Email within 24 Hours");
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(formFrame, ex.getMessage());
+            }
+        }
+    });
+}
+
+ void backButton() {
+        goback_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        goback_button.setBackground(Color.white);
+        goback_button.setBounds(740, 600, 140, 30);
+        goback_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                formFrame.dispose();
+                menu menu_object=new menu(username);
+                menu_object.MenuFrame();
+                menu_object.exitButton() ;
+                menu_object.createPlan();
+                menu_object.existingPlan();
+                menu_object.dashboardButton();
+                menu_object.profileButton();
+                menu_object.settingsButton();
+                menu_object.logoutButton();
+            }
+        });
+    }
+    
+    public static void main(String[] args) {
+        form formObject = new form("username");
+        formObject.formfilling();
+    }
+} 
+class CreatePlan extends Main {
+    CreatePlan(String username) {
+        this.username = username;
+        create_plan_label.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        create_plan_label.setForeground(Color.gray.darker());
+        create_plan_label.setBounds(50, 50, 400, 90);
+    }
+
+    void createPlan() {
+        payment_duration_label.setBounds(100, 150, 200, 70);
+        payment_duration_como.setBounds(100, 200, 100, 50);
+        total_duration_label.setBounds(100, 250, 200, 70);
+        total_duration_como.setBounds(100, 300, 100, 50);
+        room_members_label.setBounds(100, 350, 200, 70);
+        no_of_room_members_como.setBounds(100, 400, 100, 50);
+        amount_label.setBounds(100, 450, 200, 70);
+        deposit_amount_como.setBounds(100, 500, 100, 50);
+        invite_group_members_label.setBounds(500, 150, 200, 70);
+        invite_group_members_como.setBounds(500, 200, 200, 50);
+        confirm_button.setBounds(600, 600, 120, 30);
+        goback_button.setBounds(740, 600, 140, 30);
+        createplanFrame.add(create_plan_label);
+        createplanFrame.add(payment_duration_label);
+        createplanFrame.add(payment_duration_como);
+        createplanFrame.add(total_duration_label);
+        createplanFrame.add(total_duration_como);
+        createplanFrame.add(room_members_label);
+        createplanFrame.add(no_of_room_members_como);
+        createplanFrame.add(amount_label);
+        createplanFrame.add(deposit_amount_como);
+        createplanFrame.add(invite_group_members_label);
+        createplanFrame.add(invite_group_members_como);
+        createplanFrame.add(confirm_button);
+        createplanFrame.add(goback_button);
+        createplanFrame.setBackground(Color.blue);
+        createplanFrame.setLayout(null);
+        createplanFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        createplanFrame.setSize(900, 760);
+        createplanFrame.setVisible(true);
+    }
+
+    void confirmButton(String username) {
+        confirm_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        confirm_button.setBackground(Color.green);
+        confirm_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String paymentDuration = payment_duration_como.getSelectedItem().toString().trim();
+                    String totalDuration = total_duration_como.getSelectedItem().toString().trim();
+                    String inviteGroupMembers = invite_group_members_como.getSelectedItem().toString().trim();
+
+                    String roomMembersStr = no_of_room_members_como.getSelectedItem().toString().trim();
+                    String depositAmountStr = deposit_amount_como.getSelectedItem().toString().trim();
+
+                    // Parse the trimmed strings to integers
+                    int roomMembers = Integer.parseInt(roomMembersStr);
+                    double depositAmount = Double.parseDouble(depositAmountStr);
+
+                    // Store the values into the database
+                    storePlanInDatabase(username, paymentDuration, totalDuration, roomMembers, depositAmount, inviteGroupMembers);
+                    
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(createplanFrame, "Please enter valid numeric values for Room Members and Deposit Amount.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+  public void storePlanInDatabase(String username, String paymentDuration, String totalDuration, int roomMembers, double depositAmount, String inviteGroupMembers) {
+    String getEmailQuery = "SELECT email FROM users WHERE username = ?";
+    String getUserIdQuery = "SELECT user_id FROM users WHERE username = ?";
+    String countPlansQuery = "SELECT COUNT(*) AS plan_count FROM created_plans WHERE user_email = ?";
+    String insertPlanQuery = "INSERT INTO created_plans (user_id, user_email, payment_duration, total_duration, room_members, deposit_amount, invite_group_members) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/savings_buddy", "root", "");
+        PreparedStatement getUserIdStmt = con.prepareStatement(getUserIdQuery);
+        PreparedStatement getEmailStmt = con.prepareStatement(getEmailQuery);
+        PreparedStatement countPlansStmt = con.prepareStatement(countPlansQuery);
+        PreparedStatement insertPlanStmt = con.prepareStatement(insertPlanQuery)) {
+
+        // Fetch the email from the users table
+        getUserIdStmt.setString(1, username);
+        ResultSet rs1 = getUserIdStmt.executeQuery();
+        if (rs1.next()) 
+        { 
+        // Check if the ResultSet contains data
+        int userId = rs1.getInt("user_id"); // Retrieve the user_id
+        getEmailStmt.setString(1, username);
+        ResultSet rs = getEmailStmt.executeQuery();
+        
+        if (rs.next()) {
+        String userEmail = rs.getString("email");
+
+        // Check how many plans the user is currently enrolled in
+        countPlansStmt.setString(1, userEmail); // Change this to userEmail
+        ResultSet countRs = countPlansStmt.executeQuery();
+
+        if (countRs.next()) {
+            int planCount = countRs.getInt("plan_count");
+
+            // If the user is already enrolled in 5 or more plans, show a message and exit
+            if (planCount >= 5) {
+                JOptionPane.showMessageDialog(null, "You're already enrolled in 5 plans. You can create more once you finish them.", "Limit Reached", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+            // Insert the plan details into the created_plans table
+            insertPlanStmt.setInt(1, userId);
+            insertPlanStmt.setString(2, userEmail);
+            insertPlanStmt.setString(3, paymentDuration);
+            insertPlanStmt.setString(4, totalDuration);
+            insertPlanStmt.setInt(5, roomMembers);
+            insertPlanStmt.setDouble(6, depositAmount);
+            insertPlanStmt.setString(7, inviteGroupMembers);
+            insertPlanStmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Plan created successfully.");
+
+            // Prompt user to share the link on Instagram or Facebook
+            shareLinkOnSocialMedia(username);
+
+        }} else {
+            JOptionPane.showMessageDialog(null, "User email not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    void shareLinkOnSocialMedia(String username) {
+        Object[] options = {"Instagram", "Facebook", "WhatsApp"};
+        int choice = JOptionPane.showOptionDialog(null,
+                "Share the plan link on your preferred social media platform:",
+                "Share Plan Link",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[2]);
+
+        switch (choice) {
+            case 0:
+                shareOnInstagram(username);
+                break;
+            case 1:
+                shareOnFacebook(username);
+                break;
+            case 2:
+                shareOnWhatsApp(username);
+                break;
+            default:
+                // Handle other cases if needed
+                break;
+        }
+
+        // After the user shares, show the continue button in a custom dialog
+        showContinueDialog();
+    }
+    void shareOnInstagram(String username) {
+        try {
+            // Generate the plan link
+            String planLink = "http://savingsbuddy.com/plan?username=" + username;
+
+            // Encode the planLink for URL
+            String encodedLink = URLEncoder.encode(planLink, "UTF-8");
+
+            // Instagram doesn't support direct text sharing via URL scheme,
+            // but you can open the new post page with a caption pre-filled.
+            String instagramShareUrl = "https://www.instagram.com/create/caption/"
+                    + "?caption=" + encodedLink;
+
+            // Open Instagram's new post page in a web browser
+            Desktop.getDesktop().browse(new URI(instagramShareUrl));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to share on Instagram", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    void shareOnFacebook(String username) {
+        try {
+            // Generate the plan link
+            String planLink = "http://savingsbuddy.com/plan?username=" + username;
+
+            // Open Facebook's share dialog with the plan link
+            String facebookShareUrl = "https://www.facebook.com/sharer/sharer.php?u=" + planLink;
+
+            // Open Facebook share dialog in a web browser
+            Desktop.getDesktop().browse(new URI(facebookShareUrl));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to share on Facebook", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    void shareOnWhatsApp(String username) {
+        try {
+            // Generate the plan link
+            String planLink = "http://savingsbuddy.com/plan?username=" + username;
+
+            // Encode the planLink for URL
+            String encodedLink = URLEncoder.encode(planLink, "UTF-8");
+
+            // Construct the WhatsApp share URL
+            String whatsappShareUrl = "https://api.whatsapp.com/send?text=" + encodedLink;
+
+            // Open WhatsApp share URL in a web browser
+            Desktop.getDesktop().browse(new URI(whatsappShareUrl));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to share on WhatsApp", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    void showContinueDialog() {
+        // Create a custom dialog with a continue button
+        JDialog dialog = new JDialog(createplanFrame, "Continue", true);
+        dialog.setLayout(new BorderLayout());
+
+        JPanel panel = new JPanel();
+        JLabel message = new JLabel("Click continue to proceed with form filling");
+        panel.add(message);
+
+        continue_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        continue_button.setBackground(Color.orange);
+        continue_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createplanFrame.dispose();
+                dialog.dispose(); // Close the dialog
+                form obj= new form(username);
+                obj.formfilling();
+                obj.submitButton();
+                obj.backButton();
+            }
+        });
+
+        panel.add(continue_button);
+        dialog.add(panel, BorderLayout.CENTER);
+        dialog.setSize(300, 200);
+        dialog.setLocationRelativeTo(createplanFrame); // Center the dialog relative to the main frame
+        dialog.setVisible(true);
+    }
+
+    void backButton() {
+        goback_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        goback_button.setBackground(Color.GRAY);
+        goback_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createplanFrame.dispose();
+                menu menu_object = new menu(username);
+                menu_object.MenuFrame();
+                menu_object.logoutButton();
+                menu_object.settingsButton();
+                menu_object.profileButton();
+                menu_object.dashboardButton();
+                menu_object.existingPlan();
+                menu_object.createPlan();
+                menu_object.exitButton();
+            }
+        });
+    }
+} 
+class ExistingPlanMenu extends Main
+{
+    ExistingPlanMenu() {
+        existing_plan_menu_label.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        existing_plan_menu_label.setForeground(Color.gray.darker());
+        existing_plan_menu_label.setBounds(50, 50, 500, 40);
+        existing_plan_menu_label.setVisible(true);}
+
+    void existingMenuFrame() {
+        existingmenuframe.setVisible(true);
+        existingmenuframe.add(existing_plan_menu_label);
+        existingmenuframe.add(weekly_payment_button);
+        existingmenuframe.add(monthly_payment_button);
+        existingmenuframe.add(goback_button);
+        existingmenuframe.setBackground(Color.blue);
+        existingmenuframe.setLayout(null);
+        existingmenuframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        existingmenuframe.setSize(700, 500);
+    }
+    
+    void backButton() {
+        goback_button.setBounds(250, 350, 100, 30);
+        goback_button.setFont(new Font("Times New Roman", Font.BOLD, 15)); 
+        goback_button.setBackground(Color.gray);
+        goback_button.setForeground(Color.white);
+        goback_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                existingmenuframe.dispose();
+                menu menu_object = new menu(username);
+                menu_object.MenuFrame();
+                menu_object.logoutButton();
+                menu_object.settingsButton();
+                menu_object.profileButton();
+                menu_object.dashboardButton();
+                menu_object.existingPlan();
+                menu_object.createPlan();
+                menu_object.exitButton();
+            }
+        });
+    }
+    void weeklyPayment()
+            {
+        weekly_payment_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        weekly_payment_button.setBackground(Color.blue);
+        weekly_payment_button.setBounds(150, 250, 300, 30);
+        weekly_payment_button.setForeground(Color.white);
+        weekly_payment_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                existingmenuframe.dispose();
+                weeklyPayment weekly_payment_object= new weeklyPayment();
+                weekly_payment_object.WeeklyPaymentButton();
+            }
+        });
+        
+    }
+    void monthlyPayment()
+    {
+        monthly_payment_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        monthly_payment_button.setBackground(Color.blue);
+        monthly_payment_button.setBounds(150, 300, 300, 30);
+        monthly_payment_button.setForeground(Color.white);
+        monthly_payment_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                existingmenuframe.dispose();
+                monthlyPayment  monthlyPayment_object= new monthlyPayment();
+                monthlyPayment_object.MonthlyPaymentButton();
+            }
+        });
+    }  
+}
+class weeklyPayment extends Main  
+{
+    weeklyPayment()
+    {
+        weeklypaymentplans_label.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        weeklypaymentplans_label.setForeground(Color.gray.darker());
+        weeklypaymentplans_label.setBounds(50, 50, 600, 50);
+    }
+    public void WeeklyPaymentButton()
+    {
+// Buttons
+        Weeklyplan_A.setBounds(50, 100, 200, 30);
+        Weeklyplan_A.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        Weeklyplan_A.setBackground(Color.PINK);
+Weekly_planA();
+
+// Fields
+        weekly_planAfield.setBounds(50, 140, 200, 30); // Increase the y-coordinate by 10
+        weekly_planAfield.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        weekly_planAfield.setBackground(Color.WHITE);
+
+
+// Buttons
+        Weeklyplan_B.setBounds(50, 200, 200, 30);
+    Weeklyplan_B.setFont(new Font("Times New Roman", Font.BOLD, 15));
+    Weeklyplan_B.setBackground(Color.PINK);
+        Weekly_planB();
+                // Fields
+                weekly_planBfield.setBounds(50, 240, 200, 30); // Increase the y-coordinate by 10
+                weekly_planBfield.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+                weekly_planBfield.setBackground(Color.WHITE);
+
+                // Buttons
+                Weeklyplan_C.setBounds(400, 100, 200, 30);
+                Weeklyplan_C.setFont(new Font("Times New Roman", Font.BOLD, 15));
+                Weeklyplan_C.setBackground(Color.PINK);
+                Weekly_planC();
+            // Fields
+            weekly_planCfield.setBounds(400, 140, 200, 30); // Increase the y-coordinate by 10
+            weekly_planCfield.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+            weekly_planCfield.setBackground(Color.WHITE);
+
+            // Buttons
+            Weeklyplan_D.setBounds(400, 200, 200, 30);
+            Weeklyplan_D.setFont(new Font("Times New Roman", Font.BOLD, 15));
+            Weeklyplan_D.setBackground(Color.PINK);
+            Weekly_planD();
+            // Fields
+            weekly_planDfield.setBounds(400, 240, 200, 30); // Increase the y-coordinate by 10
+            weekly_planDfield.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+            weekly_planDfield.setBackground(Color.WHITE);
+        
+        weekly_planAfield.setEditable(false);
+        weekly_planBfield.setEditable(false);
+        weekly_planCfield.setEditable(false);
+        weekly_planDfield.setEditable(false);
+        
+        weeklypaymentplansframe.add(weeklypaymentplans_label);
+        weeklypaymentplansframe.add(Weeklyplan_A);
+        weeklypaymentplansframe.add(weekly_planAfield);
+        weeklypaymentplansframe.add(Weeklyplan_B);
+        weeklypaymentplansframe.add(weekly_planBfield);
+        weeklypaymentplansframe.add(Weeklyplan_C);
+        weeklypaymentplansframe.add(weekly_planCfield);
+        weeklypaymentplansframe.add(Weeklyplan_A);
+        weeklypaymentplansframe.add(Weeklyplan_D);
+        weeklypaymentplansframe.add(weekly_planDfield);
+        weeklypaymentplansframe.add(goback_button);
+        backButton();
+        weeklypaymentplansframe.setBackground(Color.GREEN);
+        weeklypaymentplansframe.setLayout(null);
+        weeklypaymentplansframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        weeklypaymentplansframe.setSize(650,550);
+        weeklypaymentplansframe.setVisible(true);
+    }
+        void Weekly_planA() {
+        Weeklyplan_A.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        Weeklyplan_A.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                weeklypaymentplansframe.dispose();
+                form obj= new form(username);
+                obj.formfilling();
+                obj.submitButton();
+                obj.backButton();
+            }
+        });
+    }
+         void Weekly_planB() {
+        Weeklyplan_B.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        Weeklyplan_B.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                weeklypaymentplansframe.dispose();
+                form obj= new form(username);
+                obj.formfilling();
+                obj.submitButton();
+                obj.backButton();
+            }
+        });
+    }
+          void Weekly_planC() {
+        Weeklyplan_C.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        Weeklyplan_C.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                weeklypaymentplansframe.dispose();
+                form obj= new form(username);
+                obj.formfilling();
+                obj.submitButton();
+                obj.backButton();
+            }
+        });
+    }
+        void Weekly_planD() {
+        Weeklyplan_D.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        Weeklyplan_D.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                weeklypaymentplansframe.dispose();
+                form obj= new form(username);
+                obj.formfilling();
+                obj.submitButton();
+                obj.backButton();
+            }
+        });
+    }
+    void backButton()
+    {
+        goback_button.setBounds(350, 410, 100, 30);
+        goback_button.setFont(new Font("Times New Roman", Font.BOLD, 15)); 
+        goback_button.setBackground(Color.gray);
+        goback_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        goback_button.setBackground(Color.blue);
+        goback_button.setForeground(Color.white);
+        goback_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                weeklypaymentplansframe.dispose();
+                ExistingPlanMenu existingMenu_object =new ExistingPlanMenu();
+                existingMenu_object.existingMenuFrame();
+                existingMenu_object.weeklyPayment();
+                existingMenu_object.monthlyPayment();
+            }
+        });
+    }
+}
+class monthlyPayment extends Main
+{
+    monthlyPayment()
+    {
+        monthlypaymentplans_label.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        monthlypaymentplans_label.setForeground(Color.gray.darker());
+        monthlypaymentplans_label.setBounds(50, 50, 600, 50);
+    }
+    public void MonthlyPaymentButton()
+    {
+            // Buttons
+            monthlyplan_A.setBounds(50, 100, 200, 30);
+            monthlyplan_A.setFont(new Font("Times New Roman", Font.BOLD, 15));
+            monthlyplan_A.setBackground(Color.PINK);
+            monthly_planA();
+            // Fields
+            monthly_planAfield.setBounds(50, 140, 200, 30); // Increase the y-coordinate by 10
+            monthly_planAfield.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+            monthly_planAfield.setBackground(Color.WHITE);
+
+            // Buttons
+            monthlyplan_B.setBounds(50, 200, 200, 30);
+            monthlyplan_B.setFont(new Font("Times New Roman", Font.BOLD, 15));
+            monthlyplan_B.setBackground(Color.PINK);
+            monthly_planB();
+            // Fields
+            monthly_planBfield.setBounds(50, 240, 200, 30); // Increase the y-coordinate by 10
+            monthly_planBfield.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+            monthly_planBfield.setBackground(Color.WHITE);
+
+            // Buttons
+            monthlyplan_C.setBounds(400, 100, 200, 30);
+            monthlyplan_C.setFont(new Font("Times New Roman", Font.BOLD, 15));
+            monthlyplan_C.setBackground(Color.PINK);
+            monthly_planC();
+            // Fields
+            monthly_planCfield.setBounds(400, 140, 200, 30); // Increase the y-coordinate by 10
+            monthly_planCfield.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+            monthly_planCfield.setBackground(Color.WHITE);
+
+            // Buttons
+            monthlyplan_D.setBounds(400, 200, 200, 30);
+            monthlyplan_D.setFont(new Font("Times New Roman", Font.BOLD, 15));
+            monthlyplan_D.setBackground(Color.PINK);
+            monthly_planD();
+            // Fields
+            monthly_planDfield.setBounds(400, 240, 200, 30); // Increase the y-coordinate by 10
+            monthly_planDfield.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+            monthly_planDfield.setBackground(Color.WHITE);
+
+        monthly_planAfield.setEditable(false);
+        monthly_planBfield.setEditable(false);
+        monthly_planCfield.setEditable(false);
+        monthly_planDfield.setEditable(false);
+        
+        monthlypaymentplansframe.add(monthlypaymentplans_label);
+        monthlypaymentplansframe.add(monthlyplan_A);
+        monthlypaymentplansframe.add(monthly_planAfield);
+        monthlypaymentplansframe.add(monthlyplan_B);
+        monthlypaymentplansframe.add(monthly_planBfield);
+        monthlypaymentplansframe.add(monthlyplan_C);
+        monthlypaymentplansframe.add(monthly_planCfield);
+        monthlypaymentplansframe.add(monthlyplan_D);
+        monthlypaymentplansframe.add(monthly_planDfield);
+        monthlypaymentplansframe.add(goback_button);
+        backButton();
+        monthlypaymentplansframe.setBackground(Color.GREEN);
+        monthlypaymentplansframe.setLayout(null);
+        monthlypaymentplansframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        monthlypaymentplansframe.setSize(650,550);
+        monthlypaymentplansframe.setVisible(true);
+    }
+    void backButton()
+    {
+        goback_button.setBounds(350, 410, 100, 30);
+        goback_button.setFont(new Font("Times New Roman", Font.BOLD, 15)); 
+        goback_button.setBackground(Color.gray);
+        goback_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                monthlypaymentplansframe.dispose();
+                ExistingPlanMenu existingMenu_object =new ExistingPlanMenu();
+                existingMenu_object.existingMenuFrame();
+                existingMenu_object.weeklyPayment();
+                existingMenu_object.monthlyPayment();
+            }
+        });}
+    void monthly_planA() {
+        monthlyplan_A.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        monthlyplan_A.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                monthlypaymentplansframe.dispose();
+                form obj= new form(username);
+                obj.formfilling();
+                obj.submitButton();
+                obj.backButton();
+            }
+        });
+    }
+    void monthly_planB() {
+        monthlyplan_B.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        monthlyplan_B.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                monthlypaymentplansframe.dispose();
+                form obj= new form(username);
+                obj.formfilling();
+                obj.submitButton();
+                obj.backButton();
+            }
+        });
+    }
+    void monthly_planC() 
+    {
+        monthlyplan_C.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        monthlyplan_C.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                monthlypaymentplansframe.dispose();
+                form obj= new form(username);
+                obj.formfilling();
+                obj.submitButton();
+                obj.backButton();
+            }
+        });
+    }
+    void monthly_planD() 
+    {
+        monthlyplan_D.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        monthlyplan_D.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                monthlypaymentplansframe.dispose();
+                form obj= new form(username);
+                obj.formfilling();
+                obj.submitButton();
+                obj.backButton();
+            }
+        });
+    }
+}
+
+class room extends Main
+{
+    room()
+    {
+        room_label.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        room_label.setForeground(Color.gray.darker());
+        room_label.setBounds(50, 50, 400, 30);
+    }
+    void roomframe()
+    {  
+            roommembers_label.setBounds(100, 100, 200, 30);
+            roommembers_field.setBounds(100, 130, 300, 50);
+            roommembers_field.setEditable(false);
+            roomchatbox_label.setBounds(100, 200, 200, 30);
+            roomchat_button.setBounds(100, 230, 100, 30);
+            roomwallet_label.setBounds(100, 280, 200, 30);
+            roomwallet_button.setBounds(100, 310, 100, 30);
+
+
+        backButton();
+        exitButton();
+        
+        roomframe.add(room_label);
+        roomframe.add(roommembers_label);
+        roomframe.add(roommembers_field);
+        roomframe.add(roomchatbox_label);
+        roomframe.add(roomchat_button);
+        roomframe.add(roomwallet_label);
+        roomframe.add(roomwallet_button);
+        roomframe.add(goback_button);
+        roomframe.add(exit_button);
+        roomframe.setBackground(Color.blue);
+        roomframe.setLayout(null);
+        roomframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        roomframe.setSize(600,600);
+        roomframe.setVisible(true);
+    }
+    
+    void backButton()
+    {
+    
+        goback_button.setFont(new Font("Times New Roman", Font.BOLD, 15)); 
+        goback_button.setBackground(Color.white);
+        goback_button.setBounds(200, 360, 100, 30);
+        goback_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                roomframe.dispose();
+                menu menu_object = new menu(username);
+                    menu_object.MenuFrame();
+                    menu_object.createPlan();
+                    menu_object.existingPlan();
+                    menu_object.exitButton();
+                    menu_object.dashboardButton();
+                    menu_object.profileButton();
+                    menu_object.settingsButton();
+                    menu_object.logoutButton();
+            }
+        });}
+    void exitButton() {
+        exit_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        exit_button.setBackground(Color.red);
+        exit_button.setForeground(Color.white);
+        exit_button.setBounds(320, 360, 100, 30);
+        exit_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                roomframe.dispose();
+            }
+        });
+    }
+    void roomwalletButton()
+    {
+        
+    }
+    void chatboxButton()
+    {
+        roomchat_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        roomchat_button.setBackground(Color.blue);
+        roomchat_button.setForeground(Color.white);
+        roomchat_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                roomframe.dispose();
+                chatbox chat=new chatbox();
+                chat.chatboxframe();
+                chat.backButton();
+                chat.exitButton();
+            }
+        });
+    }
+}
+class chatbox extends Main{
+    chatbox() {
+        roomchatbox_label.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        roomchatbox_label.setForeground(Color.gray.darker());
+        roomchatbox_label.setBounds(50, 50, 400, 30);
+    }
+
+    void chatboxframe() {
+        JTextArea chat_area = new JTextArea(20, 40);
+        chat_area.setEditable(false);
+        JScrollPane chat_scroll = new JScrollPane(chat_area);
+
+        JTextField message_field = new JTextField();
+        message_field.setBounds(100, 400, 300, 30);
+
+        JButton send_button = new JButton("Send");
+        send_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        send_button.setBackground(Color.green);
+        send_button.setForeground(Color.white);
+        send_button.setBounds(420, 400, 100, 30);
+        send_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String message = message_field.getText();
+                chat_area.append("You: " + message + "\n");
+                message_field.setText("");
+            }
+        });
+
+        backButton();
+        exitButton();
+
+        chatboxframe.add(roomchatbox_label);
+        chatboxframe.add(chat_scroll);
+        chatboxframe.add(message_field);
+        chatboxframe.add(send_button);
+        chatboxframe.add(goback_button);
+        chatboxframe.add(exit_button);
+        chatboxframe.setBackground(Color.blue);
+        chatboxframe.setLayout(null);
+        chatboxframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        chatboxframe.setSize(600, 600);
+        chatboxframe.setVisible(true);
+    }
+
+    void backButton() {
+        goback_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        goback_button.setBackground(Color.white);
+        goback_button.setBounds(200, 450, 100, 30);
+        goback_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chatboxframe.dispose();
+                room room_object = new room();
+                room_object.roomframe();
+                room_object.roomwalletButton();
+                room_object.chatboxButton();
+            }
+        });
+    }
+
+    void exitButton() {
+        exit_button.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        exit_button.setBackground(Color.red);
+        exit_button.setForeground(Color.white);
+        exit_button.setBounds(320, 450, 100, 30);
+        exit_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chatboxframe.dispose();
+            }
+        });
+    }
+}
+public class Savings_BuddyApplication {
+    public static void main(String[] args) {
+        SignUp signUp = new SignUp();
+        signUp.setupDatabase(); // Ensure database setup
+        signUp.signupPage();
+        signUp.exitButton();
+        signUp.signupframe.setVisible(true);
+    }
+}
